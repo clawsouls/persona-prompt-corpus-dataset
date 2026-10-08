@@ -8,7 +8,8 @@ abstract: >-
   Source text is bundled for the 179 records where redistribution is permitted.
 authors:
   - family-names: "Lee"
-    given-names: "Jae Joon"
+    given-names: "Tom Jaejoon"
+    affiliation: "ClawSouls"
 keywords:
   - persona prompt
   - AI agent
