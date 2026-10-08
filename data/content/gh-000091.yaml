@@ -1,0 +1,51 @@
+# Universal Persona Configuration
+# A combined toolset for most workflows
+
+# Auto-validated: 2026-02-06
+# Use tool_list() to discover available tools
+
+name: universal
+description: Combined developer and devops capabilities for full workflow support
+persona: personas/developer.md  # Defaults to developer persona, can adopt others
+
+# Tool modules to load (from tool_modules/aa_*)
+# Using _core suffix for heavy modules to stay under 80 tool limit
+tools:
+  - workflow_core   # Core (session, persona, skill, memory)
+  - git_core        # Essential git operations
+  - gitlab_core     # MRs, CI/CD basics
+  - jira_core       # Issue viewing, search, status updates
+  - k8s_core        # Essential k8s (pods, logs, deployments)
+  - code_search     # Semantic code search
+
+# Note: Use persona_load() to switch focus while keeping all tools
+
+skills:
+  # Daily workflow
+  - coffee              # ☕ Morning briefing
+  - beer                # 🍺 End of day wrap-up
+  - standup_summary     # Generate standup summary
+  - weekly_summary      # Weekly work summary
+
+  # Development
+  - start_work          # Start working on a Jira issue
+  - create_mr           # Create MR
+  - mark_mr_ready       # Mark draft MR ready
+  - review_pr           # PR review workflow
+  - check_my_prs        # Check your PRs for feedback
+  - sync_branch         # Quick sync with main
+  - cleanup_branches    # Delete merged branches
+
+  # DevOps
+  - test_mr_ephemeral   # Deploy MR to ephemeral
+  - deploy_to_ephemeral # Deploy apps to ephemeral
+  - extend_ephemeral    # Extend namespace reservation
+
+  # Incident
+  - investigate_alert   # Investigate Prometheus alerts
+  - investigate_slack_alert
+  - debug_prod          # Debug production issues
+
+  # Communication
+  - notify_team         # Send Slack notifications
+  - schedule_meeting    # Schedule meetings

@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/clawsouls/persona-prompt-corpus-dataset/schema/record.schema.json",
+  "title": "PersonaPromptRecord",
+  "description": "야생 페르소나 프롬프트 1건의 레코드. 라이선스 게이트: license.content_included=false면 full_text를 비운다.",
+  "type": "object",
+  "required": [
+    "id",
+    "source",
+    "license",
+    "stats"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^gh-[0-9]{6}$"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "repo",
+        "path",
+        "commit_sha",
+        "url",
+        "collected_at",
+        "search_path"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "description": "owner/name"
+        },
+        "path": {
+          "type": "string"
+        },
+        "commit_sha": {
+          "type": "string",
+          "minLength": 7
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "collected_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "search_path": {
+          "enum": [
+            "persona",
+            "agent",
+            "role",
+            "identity",
+            "soul"
+          ]
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "spdx",
+        "redistributable",
+        "content_included"
+      ],
+      "properties": {
+        "spdx": {
+          "type": "string"
+        },
+        "redistributable": {
+          "type": "boolean"
+        },
+        "copyleft_review": {
+          "type": "boolean",
+          "default": false
+        },
+        "content_included": {
+          "type": "boolean"
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "required": [
+        "chars",
+        "format"
+      ],
+      "properties": {
+        "chars": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "words": {
+          "type": "integer"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "md",
+            "txt",
+            "yaml",
+            "json",
+            "toml",
+            "other"
+          ]
+        },
+        "headers_max_depth": {
+          "type": "integer",
+          "description": "구조강도 산출 입력 ( R2 기준)"
+        },
+        "has_code_block": {
+          "type": "boolean"
+        },
+        "has_table": {
+          "type": "boolean"
+        }
+      }
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "데이터셋 작성자가 수집 과정에서 직접 쓴 한 줄 요약(영문). 원문에서 자동 추출한 것이 아니다."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "데이터셋 작성자가 직접 붙인 분류 태그. 평가자 간 일치도를 재는 라벨과는 별개이며, 탐색·필터 편의를 위한 것이다."
+    },
+    "full_text_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "수록된 원문의 상대 경로(data/ 기준). 재배포가 허용되지 않은 레코드는 null — 그 경우 source.commit_sha 로 원본을 직접 받을 수 있다."
+    },
+    "content_sha256": {
+      "type": "string",
+      "description": "수록된 원문 파일의 SHA-256. 원문이 수록된 레코드에만 있다."
+    },
+    "refetch": {
+      "type": "string",
+      "description": "고정한 커밋 SHA 에서 바이트 단위로 재수집했을 때의 결과(same = 수집 시점과 동일)."
+    },
+    "refetched_at": {
+      "type": "string",
+      "description": "재수집을 수행한 날짜(YYYY-MM-DD)."
+    }
+  }
+}

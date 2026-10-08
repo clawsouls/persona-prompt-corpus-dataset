@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "Persona Prompt Corpus"
+message: "If you use this dataset, please cite it using these metadata."
+type: dataset
+abstract: >-
+  A dataset of 281 AI agent persona prompts collected from public GitHub
+  repositories. Every record is pinned to a repository, path, and commit SHA.
+  Source text is bundled for the 179 records where redistribution is permitted.
+authors:
+  - family-names: "Lee"
+    given-names: "Jae Joon"
+keywords:
+  - persona prompt
+  - AI agent
+  - mining software repositories
+  - dataset
+license: CC-BY-4.0
