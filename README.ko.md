@@ -1,5 +1,7 @@
 # Persona Prompt Corpus (한국어)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23230144.svg)](https://doi.org/10.5281/zenodo.23230144)
+
 English: [README.md](README.md)
 
 GitHub 공개 저장소에서 수집한 **AI 에이전트 페르소나 프롬프트 281건**의 데이터셋입니다.
@@ -127,7 +129,11 @@ python3 scripts/stats.py
 ## 인용
 
 이 데이터셋을 쓰셨다면 Zenodo DOI 로 인용해 주세요.
-(DOI 는 첫 릴리스에서 발급되며, 발급 후 이 자리에 적습니다.)
+
+> **10.5281/zenodo.23230144** — https://doi.org/10.5281/zenodo.23230144
+
+이것은 *concept* DOI 로, 항상 최신 판을 가리킵니다. 특정 판을 인용하려면 Zenodo
+레코드에서 그 릴리스의 DOI 를 쓰면 됩니다.
 
 ## 문의
 

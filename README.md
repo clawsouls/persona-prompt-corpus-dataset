@@ -1,5 +1,7 @@
 # Persona Prompt Corpus
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23230144.svg)](https://doi.org/10.5281/zenodo.23230144)
+
 A dataset of **281 AI agent persona prompts** collected from public GitHub repositories.
 These are files such as `SOUL.md`, `persona.md`, and `IDENTITY.md` that declare an agent's
 identity, values, tone, and behavioral limits. Every record is pinned to a repository,
@@ -128,8 +130,12 @@ python3 scripts/stats.py
 
 ## Citation
 
-If you use this dataset, please cite it by its Zenodo DOI.
-(The DOI is issued with the first release and will be recorded here.)
+If you use this dataset, please cite it by its Zenodo DOI:
+
+> **10.5281/zenodo.23230144** — https://doi.org/10.5281/zenodo.23230144
+
+This is the *concept* DOI: it always resolves to the latest version. To cite a
+specific version instead, use that release's own DOI from the Zenodo record.
 
 ## Contact
 
