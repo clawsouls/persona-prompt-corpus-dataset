@@ -57,7 +57,9 @@ scripts/
 ```
 
 When `full_text_ref` is `null`, the source file is not bundled. That record still carries
-`source.commit_sha`, so **you can fetch the original yourself.**
+`source.commit_sha`, so **you can fetch the original yourself while the upstream repository
+still exists.** Repositories can be deleted or made private after collection, and some already
+have; for those records only the metadata remains.
 
 ---
 
