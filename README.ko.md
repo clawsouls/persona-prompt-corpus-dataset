@@ -11,6 +11,8 @@ GitHub 공개 저장소에서 수집한 **AI 에이전트 페르소나 프롬프
 - **레코드 281건 / 저장소 168곳**
 - **전 레코드 provenance 고정** (281/281) — 저장소·경로·수집 시점의 커밋 SHA
 - 원문 수록 **179건**, 메타데이터만 **102건** (아래 "라이선스 게이트" 참고)
+- **전 레코드에 두 평가자의 라벨** (v1.1) — 내용 facet 9개, 조건절 개수, 순서형 형태 척도.
+  주석 가이드와 항목별 불일치 목록 포함
 
 > 이 README 의 수치는 `scripts/build_public_bundle.py` 가 데이터에서 세어 적습니다.
 > 손으로 적지 않으므로 데이터와 어긋나지 않습니다.
@@ -21,37 +23,51 @@ GitHub 공개 저장소에서 수집한 **AI 에이전트 페르소나 프롬프
 
 ```
 data/
-  records.jsonl        레코드 281건 (JSON Lines)
-  content/             원문 179건 — 재배포가 허용된 것만
+  records.jsonl          레코드 281건 (JSON Lines)
+  content/               원문 179건 — 재배포가 허용된 것만
+  dup_clusters.csv       저장소 간 근접 중복 군집 (코퍼스에 유지, 목록만 공개)
+labels/
+  rater1.csv             평가자 1 라벨 (레코드당 1행)
+  rater2.csv             평가자 2 라벨 (독립 코딩)
+  disagreements.csv      두 평가자가 다른 레코드×항목 (1017행)
 schema/
-  record.schema.json   레코드 스키마
+  record.schema.json     레코드 스키마
 docs/
-  COLLECTION_METHOD.md 수집 방법
+  COLLECTION_METHOD.md   수집 방법 (국문: COLLECTION_METHOD.ko.md)
+  ANNOTATION_GUIDE.md    판정 질문과 경계 사례 (영문)
+  SCHEME_HISTORY.md      형태 척도가 3단이 된 경위 (영문, 파일럿 수치)
 scripts/
-  stats.py             코퍼스 통계 재생성
+  stats.py               코퍼스 통계 (라벨 무관)
+  label_stats.py         라벨 의존 수치, 평가자별
+  agreement.py           평가자 간 일치도 (Krippendorff α, Cohen κ)
+  refetch_pinned.py      고정 커밋에서 다시 받아 대조
+  license_gate.py        라이선스 게이트 감사, 선택 시 GitHub 에서 SPDX 재조회
+  find_duplicates.py     근접 중복 탐지 (재실행은 수록 원문 범위)
+requirements.txt
 ```
 
 ### 레코드 한 건의 모양
 
 ```json
 {
-  "id": "gh-000001",
+  "id": "gh-000013",
   "source": {
-    "repo": "HLR/DomiKnowS",
-    "path": "Agent.md",
-    "commit_sha": "d3fb1904b602f69e654986d6add27cc18db7312f",
-    "url": "https://github.com/HLR/DomiKnowS/blob/HEAD/Agent.md",
-    "collected_at": "2026-08-09"
+    "repo": "ceciliomichael/echode",
+    "path": "identity/ask.md",
+    "commit_sha": "e1dc45961bf4ffebf7d8a3696c3bc2b5de7c180e",
+    "url": "https://github.com/ceciliomichael/echode/blob/HEAD/identity/ask.md",
+    "collected_at": "2026-08-09",
+    "search_path": "identity"
   },
-  "license": { "spdx": "MIT", "redistributable": true, "content_included": true },
-  "full_text_ref": "content/gh-000001.md",
+  "license": { "spdx": "MIT", "redistributable": true, "copyleft_review": false, "content_included": true },
+  "full_text_ref": "content/gh-000013.md",
   "content_sha256": "…",
-  "summary": "Two-phase DomiKnowS graph-builder agent: …",
-  "tags": ["coding-assistant", "domain-expert", "structured-output"],
+  "summary": "Excerpt of a coding-assistant app's 'Ask Mode' identity + communication-style prompt sections: …",
+  "tags": ["coding-assistant", "documentation-excerpt"],
+  "stats": { "chars": 937, "words": 125, "lang": "en", "format": "md",
+             "headers_max_depth": 1, "has_code_block": true, "has_table": false },
   "refetch": "same",
-  "refetched_at": "2026-09-06",
-  "stats": { "chars": 7335, "words": 980, "lang": "en", "format": "md",
-             "headers_max_depth": 3, "has_code_block": true, "has_table": true }
+  "refetched_at": "2026-09-06"
 }
 ```
 
@@ -85,9 +101,29 @@ scripts/
 
 ---
 
+## 라벨
+
+두 평가자가 281건 전부를 상의 없이, 기계 사전 채움 없이 독립적으로 코딩했습니다. 항목 정의와
+경계 사례는 [docs/ANNOTATION_GUIDE.md](docs/ANNOTATION_GUIDE.md) 에 있습니다.
+
+**쓰기 전에 신뢰도를 보세요.** `structure_form` 은 신뢰 기준을 넘었습니다(순서형
+Krippendorff α = 0.84). 내용 facet 9개는 모두 α 0.667 미만이고, 불일치는 대부분 한쪽으로
+쏠립니다 — 정체성·목표 같은 개념의 경계를 두 평가자가 다른 곳에 그었다는 뜻입니다. 그래서
+합의한 단일 라벨 대신 두 평가자의 라벨과 불일치 목록을 그대로 공개합니다. facet 수치는
+평가자 간 범위로 읽고, 두 평가자 모두에서 성립하는 패턴만 쓰세요.
+
+```bash
+pip install -r requirements.txt
+python3 scripts/agreement.py        # α·κ·불일치 방향
+python3 scripts/label_stats.py      # 내용 유형, 형태×내용, 경로별 수치
+```
+
+---
+
 ## 라이선스
 
-- **이 저장소가 만든 것** — 메타데이터, 스키마, 문서, 스크립트: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **이 프로젝트가 만든 메타데이터·라벨·스키마·문서**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **`scripts/` 의 스크립트**: MIT (`scripts/LICENSE`)
 - **`data/content/` 의 원문** — 각 원저작자의 라이선스를 그대로 따릅니다.
   레코드별 SPDX 는 `records.jsonl` 의 `license.spdx` 에 있습니다.
 
@@ -123,8 +159,11 @@ python3 scripts/stats.py
 - 거의 전부 영어입니다(281건 중 280건 — 문자 기반 판정이라 근사치입니다).
 - `summary` 와 `tags` 는 **데이터셋 작성자가 수집 과정에서 직접 쓴 것**입니다. 원문에서 자동
   추출한 것이 아니며, 탐색과 필터 편의를 위한 것입니다.
-- 평가자 간 일치도를 재는 **분류 라벨은 아직 포함되지 않았습니다.** 평가가 끝나고 일치도를
-  보고할 수 있게 되면 별도 릴리스로 추가합니다.
+- 내용 facet 라벨은 통상의 신뢰 기준에 못 미칩니다(위 "라벨"). 이 판에서는 정의를 고치거나
+  불일치를 재코딩하지 않았습니다.
+- 두 평가자 모두 데이터셋 저자이며, 평가자 1은 `summary`·`tags` 도 썼습니다.
+- 2026-09-06 재수집 이전 단계의 후보 수와 스크리닝 기록은 공개본에 없고, 포함 판정 자체의
+  일치도는 재지 않았습니다.
 
 ---
 
@@ -136,6 +175,12 @@ python3 scripts/stats.py
 
 이것은 *concept* DOI 로, 항상 최신 판을 가리킵니다. 특정 판을 인용하려면 Zenodo
 레코드에서 그 릴리스의 DOI 를 쓰면 됩니다.
+
+### 판
+
+- **v1.1.0** — 두 평가자 라벨, 불일치 목록, 주석 가이드, 척도 경위 문서, 근접 중복 군집 목록,
+  일치도·라벨 통계·재수집·라이선스 게이트·중복 탐지 스크립트 추가. 레코드와 원문은 그대로.
+- **v1.0.0** — 레코드 281건, 원문 수록 179건.
 
 ## 문의
 

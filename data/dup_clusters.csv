@@ -1,0 +1,5 @@
+cluster_id,record_id,repo,path,kind,cluster_size,cross_repo
+dup-001,gh-000214,TheMattBerman/meta-ads-kit,SOUL.md,near-or-template,2,yes
+dup-001,gh-000241,masonjames/meta-ads-kit,SOUL.md,near-or-template,2,yes
+dup-002,gh-000228,seedprod/openclaw-prompts-and-skills,SOUL.md,near-or-template,2,yes
+dup-002,gh-000239,pinpox/opencrow,SOUL.md,near-or-template,2,yes
