@@ -14,10 +14,10 @@ abstract: >-
 authors:
   - family-names: "Lee"
     given-names: "Tom Jaejoon"
-    affiliation: "ClawSouls"
+    affiliation: "ClawSouls, ModuLabs"
   - family-names: "Shin"
     given-names: "Eunji"
-    affiliation: "Modu Labs"
+    affiliation: "ModuLabs"
 keywords:
   - persona prompt
   - AI agent
