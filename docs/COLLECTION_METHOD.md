@@ -5,8 +5,8 @@
 We searched public GitHub repositories by path, using five patterns: `persona`, `agent`,
 `role`, `identity`, and `soul`.
 
-**Why path search rather than a popularity sample.** In a sample that filters for mature
-engineering projects (non-fork, two or more contributors, an OSI license, at least 271
+**Why path search rather than a popularity sample.** In a sample that filters for mature,
+popular repositories (non-fork, two or more contributors, an OSI license, at least 271
 commits), these files are structurally absent. Scanning 9,975 such repositories, filename
 patterns matched 42 (0.42%), and only **3 (0.03%)** survived intent screening. Persona files
 in the wild live in agent workspaces and personal repositories.
