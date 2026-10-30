@@ -17,9 +17,11 @@ step** is therefore necessary.
 
 ## Steps
 
-1. **Search** — collect candidates by the five path patterns
-2. **Intent screening** — manually exclude files that are not persona declarations
-   (reason recorded per file)
+1. **Search** — collect files by the five path patterns (records collected 2026-08-09)
+2. **Inclusion rule** — keep natural-language specifications that declare identity, role,
+   voice, or behavioral boundaries; exclude files with only build/test commands,
+   architecture notes, or tool usage. Files declaring only behavioral boundaries were kept,
+   so the corpus boundary is broader than an identity-only definition
 3. **Pin the SHA** — store the commit SHA that last touched the file at collection time,
    together with repository and path
 4. **Byte-level refetch** — fetch again at the pinned SHA and compare byte for byte
@@ -28,6 +30,13 @@ step** is therefore necessary.
    redistribution is permitted
 
 Collection closed **2026-09-30**.
+
+## What is not in the release
+
+Candidate counts and screening records from the search and inclusion steps, which predate
+the 2026-09-06 re-fetch, are not part of the release. Agreement on the inclusion decision
+was not measured; every included file was coded independently by both raters (see
+`labels/`).
 
 ## Records dropped during refetch
 

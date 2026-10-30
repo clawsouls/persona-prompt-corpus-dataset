@@ -2,18 +2,27 @@ cff-version: 1.2.0
 title: "Persona Prompt Corpus"
 message: "If you use this dataset, please cite it using these metadata."
 type: dataset
+version: "1.1.0"
 abstract: >-
   A dataset of 281 AI agent persona prompts collected from public GitHub
   repositories. Every record is pinned to a repository, path, and commit SHA.
   Source text is bundled for the 179 records where redistribution is permitted.
+  Version 1.1 adds two raters' independent labels for every record (nine content
+  facets, a count of conditional clauses, and an ordinal form scale), the
+  disagreement list, the annotation guide, and the scripts that reproduce the
+  agreement and label statistics.
 authors:
   - family-names: "Lee"
     given-names: "Tom Jaejoon"
-    affiliation: "ClawSouls"
+    affiliation: "ClawSouls, ModuLabs"
+  - family-names: "Shin"
+    given-names: "Eunji"
+    affiliation: "ModuLabs"
 keywords:
   - persona prompt
   - AI agent
   - mining software repositories
   - dataset
+  - inter-rater agreement
 license: CC-BY-4.0
 doi: 10.5281/zenodo.23230144
